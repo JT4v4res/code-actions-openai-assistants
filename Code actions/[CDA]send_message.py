@@ -1,6 +1,4 @@
-from aiohttp.web_fileresponse import content_type
 from openai import OpenAI, OpenAIError
-import os
 import json
 
 
@@ -36,7 +34,7 @@ def send_message(client: OpenAI, thread_id: str, assistant_id: str, content: str
 def Run(engine):
     assistant_id = engine.params.get('assistant_id')
     openai_api_key = engine.params.get('openai_api_key')
-    content = engine.params.get('content')
+    content = json.loads(engine.body)['content']
     thread_id = engine.params.get('thread_id')
 
     client = OpenAI(api_key=openai_api_key)

@@ -1,6 +1,5 @@
 from openai import OpenAI
 import json
-import traceback
 
 
 def get_message(client: OpenAI, thread_id: str) -> str:
@@ -36,5 +35,4 @@ def Run(engine):
         engine.result.set(json.dumps({'message': message}, indent=4), status_code=200, content_type='application/json')
     except Exception as e:
         engine.log.error(f"Can't get message: {e}")
-        engine.log.error(traceback.format_exc())
         engine.result.set(json.dumps({'error': f"Can't get message: {e}"}, indent=4), status_code=500, content_type='application/json')
